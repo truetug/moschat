@@ -12,4 +12,3 @@ python-jose[cryptography]
 passlib
 
 PyStemmer
-markdown

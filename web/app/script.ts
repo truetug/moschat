@@ -131,7 +131,7 @@ function handle_message(channel, msg) {
         const content = newMsg.getElementsByClassName("chat_message__content")[0]
         const datetime = newMsg.getElementsByClassName("chat_message__date")[0]
 
-        content.innerHTML = msg.data.message
+        content.innerHTML = marked.parse(msg.data.message)
         datetime.innerText = datetime_value.toLocaleString()
         console.log(newMsg)
 

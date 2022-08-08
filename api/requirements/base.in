@@ -1,0 +1,15 @@
+cent
+fastapi
+pydantic
+uvicorn
+pyjwt
+httpx
+sqlalchemy
+orjson
+dateparser
+
+python-jose[cryptography]
+passlib
+
+PyStemmer
+markdown

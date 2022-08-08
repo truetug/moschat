@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>Superapp Web Chatbot</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css"/>
+    <link rel="stylesheet" href="styles.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/centrifuge@2.7.3/dist/centrifuge.min.js"></script>
+    <script type="text/javascript" src="script.ts"></script>
+</head>
+<body>
+<section class="section">
+    <div class="container">
+        <p class="subtitle">Superapp Web Chatbot</p>
+
+        <div id="templates" style="display: none">
+            <div id="typing">
+                <div class="typing typing-1"></div>
+                <div class="typing typing-2"></div>
+                <div class="typing typing-3"></div>
+            </div>
+            <div id="user">
+                <div class="chat_message chat_message__user">
+                    <div class="chat_message__content"></div>
+                    <div class="chat_message__date"></div>
+                </div>
+            </div>
+            <div id="bot">
+                <div class="chat_message chat_message__bot">
+                    <div class="chat_message__content"></div>
+                    <div class="chat_message__date"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chat">
+            <div id="message_list">
+            </div>
+
+            <div class="chat__input">
+                <input name="chat" id="chat"/>
+                <button class="button" onclick="sendMessage()">↵</button>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

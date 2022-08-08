@@ -1,0 +1,26 @@
+{
+  "token_hmac_secret_key": "978bcfb2-b8ee-424a-a9eb-ce8002f93edc",
+  "admin_password": "1086d86c-3648-40ab-8098-ae5669b2e40e",
+  "admin_secret": "aaa90425-e9ef-4fb5-8f16-53f1125dbf2c",
+  "api_key": "e68f3a52-be0b-43ba-b866-db8f326eb9e2",
+  "allowed_origins": [],
+
+  "presence": true,
+  "history_size": 10,
+  "history_ttl": "30s",
+
+  "namespaces": [
+    {
+      "name": "notifications",
+      "history_size": 10,
+      "history_ttl": "300s",
+      "allow_subscribe_for_client": true
+    },
+    {
+      "name": "chats",
+      "history_size": 10,
+      "history_ttl": "300s",
+      "allow_subscribe_for_client": true
+    }
+  ]
+}

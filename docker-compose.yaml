@@ -1,0 +1,47 @@
+version: '3.7'
+
+services:
+  redis:
+    image: redis
+#    ports:
+#    - "6379:6379"
+
+  centrifugo:
+    image: centrifugo/centrifugo:v3.2
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+    - |
+      centrifugo genconfig --config=/centrifugo/config.json
+      centrifugo --config=/centrifugo/config.json --port=8000 --engine=redis --redis_address="redis://redis:6379" --log_level=debug --admin
+    ports:
+    - "8000:8000"
+    volumes:
+    - "./centrifugo:/centrifugo"
+    environment:
+      - CENTRIFUGO_ALLOWED_ORIGINS=*
+    depends_on:
+      - redis
+    ulimits:
+      nproc: 65536
+      nofile:
+        soft: 65536
+        hard: 65536
+
+  api:
+    build: ./api
+    ports:
+     - "5080:5000"
+    command: uvicorn app.main:app --host=0.0.0.0 --port=5000 --reload
+    volumes:
+    - "./centrifugo:/centrifugo"
+    - "./api:/code"
+    - "./db:/db.sqlite3"
+    depends_on:
+      - centrifugo
+
+  web:
+    build: ./web
+    ports:
+     - "8080:8080"
+    volumes:
+    - "./web/app:/src"

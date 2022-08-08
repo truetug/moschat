@@ -1,9 +1,8 @@
 import time
 
+from app.settings.base import CENTRIFUGO_SECRET
 from jose import jwt
 from starlette.requests import Request
-
-from app.settings.base import CENTRIFUGO_SECRET
 
 
 def get_centrifugo(request: Request):

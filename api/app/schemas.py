@@ -1,4 +1,4 @@
-from typing import List, Union, Any, Dict, Optional
+from typing import Any, Dict, List, Optional, Union
 
 import orjson
 from markdown import markdown

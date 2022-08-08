@@ -4,7 +4,6 @@ import json
 import pydantic.json
 
 
-
 def import_class(path: str):
     path, cls_name = path.rsplit(".", 1)
     module = importlib.import_module(path)

@@ -1,8 +1,8 @@
+from app.schemas import HistoryItemCreate, UserCreate
+from app.services.auth.helpers import get_password_hash
 from sqlalchemy.orm import Session
 
-from .models import User, History
-from app.schemas import UserCreate, HistoryItemCreate
-from app.services.auth.helpers import get_password_hash
+from .models import History, User
 
 
 def get_user(session: Session, user_id: int):

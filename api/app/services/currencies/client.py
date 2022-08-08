@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 
 
 class Client:
-    host = "weatherapi-com.p.rapidapi.com"
+    host = "currencyscoop.p.rapidapi.com"
 
     def __init__(self):
         headers = {
@@ -20,10 +20,10 @@ class Client:
             headers=headers,
         )
 
-    async def get_history(self, city: str, dt: datetime):
+    async def get_history(self, dt: datetime):
         response = await self.client.get(
-            url=f"https://{self.host}/history.json",
-            params = {"q": city, "dt": dt.strftime("%Y-%m-%d")},
+            url=f"https://{self.host}/historical",
+            params = {"date": dt.strftime("%Y-%m-%d")},
         )
 
         return response

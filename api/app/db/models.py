@@ -1,4 +1,5 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, DateTime, func, JSON
+from sqlalchemy import (JSON, Boolean, Column, DateTime, ForeignKey, Integer,
+                        String, func)
 from sqlalchemy.orm import relationship
 
 from . import Base
@@ -23,6 +24,7 @@ class User(Base):
         result = []
         if self.id:
             result.append("can_use_weather")
+            result.append("can_use_currencies")
 
         return result
 

@@ -1,9 +1,8 @@
+from app.settings.base import CENTRIFUGO_API_KEY, CENTRIFUGO_API_URL
 from cent import Client
 from starlette import status
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
-
-from app.settings.base import CENTRIFUGO_API_URL, CENTRIFUGO_API_KEY
 
 
 class CentrifugoMiddleware(BaseHTTPMiddleware):

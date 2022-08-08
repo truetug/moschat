@@ -1,11 +1,9 @@
-from starlette.requests import Request
-
+from app.helpers import _custom_json_serializer
+from app.settings.base import DATABASE_URL
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-
-from app.helpers import _custom_json_serializer
-from app.settings.base import DATABASE_URL
+from starlette.requests import Request
 
 connect_args = {}
 if DATABASE_URL.startswith("sqlite"):

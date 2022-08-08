@@ -1,6 +1,5 @@
-from sqlalchemy.orm import Session
-
 from app.schemas import Message
+from sqlalchemy.orm import Session
 
 
 class BaseService:

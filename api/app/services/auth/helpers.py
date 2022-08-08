@@ -1,18 +1,20 @@
+import logging
 from datetime import datetime, timedelta
 from typing import Optional, Union
 
+from app.db import get_session
+from app.db.models import User
+from app.schemas import TokenData
+from app.settings.base import ALGORITHM, SECRET_KEY
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
-from jose import jwt, JWTError
+from jose import JWTError, jwt
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
 from starlette import status
 from starlette.requests import Request
 
-from app.db import get_session
-from app.db.models import User
-from app.schemas import TokenData
-from app.settings.base import SECRET_KEY, ALGORITHM
+logger = logging.getLogger(__name__)
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
@@ -41,7 +43,6 @@ def create_access_token(data: dict, expires_delta: Union[timedelta, None] = None
 
 
 def get_token(request: Request):
-    print("HEADERS", request.headers)
     result = request.headers.get("Authorization", "")
     if result:
         result = result.split()[-1]
@@ -53,14 +54,8 @@ async def get_current_user(
     session: Session = Depends(get_session),
     token: Optional[str] = Depends(get_token),
 ) -> Optional[User]:
-    credentials_exception = HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Could not validate credentials",
-        headers={"WWW-Authenticate": "Bearer"},
-    )
-
     try:
-        print("PARSE TOKEN", token)
+        logger.debug("Parsing token: %s", token)
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         username: str = payload.get("sub")
         if username is None:
@@ -88,5 +83,5 @@ async def get_current_active_user(user: User = Depends(get_current_user)):
             detail="Inactive user",
         )
 
-    print("USER", user.username)
+    logger.debug("Current active user: %s", user.username)
     return user

@@ -1,5 +1,6 @@
 import json
 import logging
+import locale
 import os
 
 from app.helpers import import_class
@@ -18,6 +19,7 @@ ALGORITHM = os.getenv("ALGORITHM", "HS256")
 ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
 
 PREPARE_PIPELINE = [
+    "app.pipeline.lower.LowerCaseHandler",
     "app.pipeline.tokenize.WhiteSpaceHandler",
     "app.pipeline.stem.SnowballHandler",
     "app.pipeline.stopwords.RussianStopWordsHandler",

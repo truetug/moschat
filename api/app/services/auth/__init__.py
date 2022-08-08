@@ -1,15 +1,19 @@
+import logging
+
+from app.schemas import HistoryItem, Message
+from app.services import BaseService
+from app.services.auth.helpers import create_access_token, verify_password
+from app.services.exceptions import ServiceValidationError
 from sqlalchemy.orm import Session
 
-from app.schemas import Message, HistoryItem
-from app.services import BaseService
-from app.services.auth.helpers import verify_password, create_access_token
-from app.services.exceptions import ServiceValidationError
+logger = logging.getLogger(__name__)
 
 
 class AuthService(BaseService):
     async def process(self, session: Session, *args) -> Message:
+        logger.debug("Service processing: %s %s", self.__class__.__name__, args)
+
         try:
-            print("COMMAND ARGS", args)
             username, password = args
         except Exception:
             raise ServiceValidationError("Что-то не так с аргументами")

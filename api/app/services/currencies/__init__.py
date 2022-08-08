@@ -23,6 +23,13 @@ class CurrenciesService(BaseService):
                 f"Неверные параметры: {exc} ({', '.join(args)})",
             )
 
+        value_to = ticker_to[:-3] or "1"
+        ticker_to = ticker_to[-3:]
+        try:
+            value_to = float(value_to)
+        except Exception:
+            pass
+
         try:
             client = Client()
             response = await client.get_history(dt)
@@ -40,15 +47,15 @@ class CurrenciesService(BaseService):
 
         price_from = rates.get(ticker_from)
         price_to = rates.get(ticker_to)
-        if not all((price_from, price_from)):
+        if None in (price_from, price_to):
             raise ServiceValidationError(
                 "Валюта указана неверно, доступные варианты: "
                 f"{', '.join(rates.keys())}"
             )
 
         text = (
-            f"{dt.strftime('%d.%m.%Y')} `1 {ticker_to}` можно было купить за "
-            f"`{round(price_from / price_to, 2)} {ticker_from}`"
+            f"{dt.strftime('%d.%m.%Y')} `{value_to} {ticker_to}` можно было купить за "
+            f"`{round(price_from / price_to * value_to, 2)} {ticker_from}`"
         )
 
         return Message(
